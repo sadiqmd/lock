@@ -17,6 +17,12 @@ import { renderSignedInConfirmation } from '../../core/signed_in_confirmation';
 import LoginSignUpTabs from '../../connection/database/login_sign_up_tabs';
 import * as l from '../../core/index';
 import { logIn as enterpriseLogIn, startHRD } from '../../connection/enterprise/actions';
+
+import { quickAuthConnection } from '../../connection/enterprise';
+import { authButtonsTheme } from '../../connection/social/index';
+import QuickAuthPane from '../../ui/pane/quick_auth_pane';
+import { logIn as quickAuthLogin } from '../../quick-auth/actions';
+
 import {
   defaultEnterpriseConnection,
   findADConnectionWithoutDomain,
@@ -58,14 +64,45 @@ const Component = ({ i18n, model }) => {
     />
   );
 
+  let enterprise = null;
+  if (l.hasSomeConnections(model, 'enterprise')) {
+    const connection = l.connections(model, 'enterprise').get(0);
+    const connectionName = connection.getIn(['name']);
+    const connectionDomain = connection.getIn(['domains', 0]);
+
+    const headerText = i18n.html('enterpriseLoginIntructions') || null;
+    const header = headerText && <p>{headerText}</p>;
+
+    const theme = authButtonsTheme(model);
+    const buttonTheme = theme.get(connection.get('name'));
+    const buttonLabel =
+      (buttonTheme && buttonTheme.get('displayName')) ||
+      (connectionDomain && i18n.str('loginAtLabel', connectionDomain)) ||
+      i18n.str('loginAtLabel', connectionName);
+    const primaryColor = buttonTheme && buttonTheme.get('primaryColor');
+    const foregroundColor = buttonTheme && buttonTheme.get('foregroundColor');
+
+    enterprise = l.hasSomeConnections(model, 'enterprise') && (
+      <QuickAuthPane
+        buttonLabel={buttonLabel}
+        buttonClickHandler={e => quickAuthLogin(l.id(model), connection)}
+        header={header}
+        primaryColor={primaryColor}
+        foregroundColor={foregroundColor}
+        strategy={'auth0'}
+      />
+    );
+  }
+
   const showPassword =
     !sso && (l.hasSomeConnections(model, 'database') || !!findADConnectionWithoutDomain(model));
 
   const showForgotPasswordLink = showPassword && l.hasSomeConnections(model, 'database');
 
-  const loginInstructionsKey = social
-    ? 'databaseEnterpriseAlternativeLoginInstructions'
-    : 'databaseEnterpriseLoginInstructions';
+  const loginInstructionsKey =
+    social || enterprise
+      ? 'databaseEnterpriseAlternativeLoginInstructions'
+      : 'databaseEnterpriseLoginInstructions';
 
   const usernameInputPlaceholderKey =
     databaseUsernameStyle(model) === 'any' || l.countConnections(model, 'enterprise') > 1
@@ -93,13 +130,14 @@ const Component = ({ i18n, model }) => {
 
   const ssoNotice = sso && <SingleSignOnNotice>{i18n.str('ssoEnabled')}</SingleSignOnNotice>;
 
-  const separator = social && login && <PaneSeparator />;
+  const separator = (enterprise || social) && login && <PaneSeparator />;
 
   return (
     <div>
       {ssoNotice}
       {tabs}
       {social}
+      {enterprise}
       {separator}
       {login}
     </div>
