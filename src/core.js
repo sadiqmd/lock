@@ -41,7 +41,7 @@ export default class Base extends EventEmitter {
       'hash_parsed',
       'signin ready',
       'signup ready',
-
+      'cancel login',
       'forgot_password ready',
       'forgot_password submit',
       'signin submit',
