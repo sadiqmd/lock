@@ -2,7 +2,7 @@
  * lock v10.24.2
  * 
  * Author: Auth0 <support@auth0.com> (http://auth0.com)
- * Date: 1/8/2018, 8:10:46 PM
+ * Date: 1/15/2018, 5:05:55 PM
  * License: MIT
  * 
  */ /******/ (function(
@@ -9408,6 +9408,8 @@ object-assign
           var force = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
           var callback =
             arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : function() {};
+          var isCancelled =
+            arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
 
           // Do nothing when the Lock can't be closed, unless closing is forced.
           var m = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__store_index__['d' /* read */])(
@@ -9423,6 +9425,9 @@ object-assign
           }
 
           __WEBPACK_IMPORTED_MODULE_4__index__['emitEvent'](m, 'hide');
+          if (isCancelled) {
+            __WEBPACK_IMPORTED_MODULE_4__index__['emitEvent'](m, 'cancel login');
+          }
 
           // If it is a modal, stop rendering an reset after a second,
           // otherwise just reset.
@@ -23014,7 +23019,7 @@ object-assign
               isSubmitting = _props.isSubmitting;
 
             if (!isSubmitting) {
-              closeHandler();
+              closeHandler(false, function() {}, true);
             }
           };
 
@@ -32851,6 +32856,7 @@ object-assign
             'hash_parsed',
             'signin ready',
             'signup ready',
+            'cancel login',
             'forgot_password ready',
             'forgot_password submit',
             'signin submit',
