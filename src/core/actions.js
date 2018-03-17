@@ -109,7 +109,7 @@ export function openLock(id, opts) {
   return true;
 }
 
-export function closeLock(id, force = false, callback = () => {}) {
+export function closeLock(id, force = false, callback = () => {}, isCancelled = false) {
   // Do nothing when the Lock can't be closed, unless closing is forced.
   let m = read(getEntity, 'lock', id);
   if ((!l.ui.closable(m) && !force) || !l.rendering(m)) {
@@ -117,6 +117,9 @@ export function closeLock(id, force = false, callback = () => {}) {
   }
 
   l.emitEvent(m, 'hide');
+  if (isCancelled) {
+    l.emitEvent(m, 'cancel login');
+  }
 
   // If it is a modal, stop rendering an reset after a second,
   // otherwise just reset.

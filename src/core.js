@@ -46,6 +46,7 @@ export default class Base extends EventEmitter {
       'socialOrPhoneNumber ready',
       'socialOrEmail ready',
       'vcode ready',
+      'cancel login',
       'forgot_password ready',
       'forgot_password submit',
       'signin submit',
