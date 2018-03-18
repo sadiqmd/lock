@@ -116,7 +116,7 @@ export default class Container extends React.Component {
   handleClose() {
     const { closeHandler, isSubmitting } = this.props;
     if (!isSubmitting) {
-      closeHandler();
+      closeHandler(false, () => {}, true);
     }
   }
 
