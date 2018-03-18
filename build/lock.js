@@ -2,7 +2,7 @@
  * lock v11.3.1
  * 
  * Author: Auth0 <support@auth0.com> (http://auth0.com)
- * Date: 2018-3-8 18:03:45
+ * Date: 2018-3-18 17:05:41
  * License: MIT
  * 
  */ /******/ (function(
@@ -9106,6 +9106,8 @@ object-assign
           var force = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
           var callback =
             arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : function() {};
+          var isCancelled =
+            arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
 
           // Do nothing when the Lock can't be closed, unless closing is forced.
           var m = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__store_index__['d' /* read */])(
@@ -9121,6 +9123,9 @@ object-assign
           }
 
           __WEBPACK_IMPORTED_MODULE_4__index__['emitEvent'](m, 'hide');
+          if (isCancelled) {
+            __WEBPACK_IMPORTED_MODULE_4__index__['emitEvent'](m, 'cancel login');
+          }
 
           // If it is a modal, stop rendering an reset after a second,
           // otherwise just reset.
@@ -12713,9 +12718,9 @@ object-assign
     /* 43 */
     /***/ function(module, __webpack_exports__, __webpack_require__) {
       'use strict';
-      /* harmony export (immutable) */ __webpack_exports__['c'] = skipQuickAuth;
+      /* harmony export (immutable) */ __webpack_exports__['b'] = skipQuickAuth;
       /* harmony export (immutable) */ __webpack_exports__['a'] = logIn;
-      /* harmony export (immutable) */ __webpack_exports__['b'] = checkSession;
+      /* unused harmony export checkSession */
       /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__quick_auth__ = __webpack_require__(83);
       /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__store_index__ = __webpack_require__(9);
       /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__core_actions__ = __webpack_require__(
@@ -23069,6 +23074,7 @@ object-assign
             'socialOrPhoneNumber ready',
             'socialOrEmail ready',
             'vcode ready',
+            'cancel login',
             'forgot_password ready',
             'forgot_password submit',
             'signin submit',
@@ -23869,33 +23875,15 @@ object-assign
         var buttonIcon = buttonTheme && buttonTheme.get('icon');
 
         var buttonClickHandler = function buttonClickHandler() {
-          var isUniversalLogin =
-            window.location.host === __WEBPACK_IMPORTED_MODULE_5__index__['domain'](model);
-          if (isUniversalLogin) {
+          __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__quick_auth_actions__['a' /* logIn */])(
+            __WEBPACK_IMPORTED_MODULE_5__index__['id'](model),
             __webpack_require__.i(
-              __WEBPACK_IMPORTED_MODULE_3__quick_auth_actions__['a' /* logIn */]
-            )(
-              __WEBPACK_IMPORTED_MODULE_5__index__['id'](model),
-              __webpack_require__.i(
-                __WEBPACK_IMPORTED_MODULE_4__index__['a' /* lastUsedConnection */]
-              )(model),
-              __webpack_require__.i(
-                __WEBPACK_IMPORTED_MODULE_4__index__['b' /* lastUsedUsername */]
-              )(model)
-            );
-          } else {
-            __webpack_require__.i(
-              __WEBPACK_IMPORTED_MODULE_3__quick_auth_actions__['b' /* checkSession */]
-            )(
-              __WEBPACK_IMPORTED_MODULE_5__index__['id'](model),
-              __webpack_require__.i(
-                __WEBPACK_IMPORTED_MODULE_4__index__['a' /* lastUsedConnection */]
-              )(model),
-              __webpack_require__.i(
-                __WEBPACK_IMPORTED_MODULE_4__index__['b' /* lastUsedUsername */]
-              )(model)
-            );
-          }
+              __WEBPACK_IMPORTED_MODULE_4__index__['a' /* lastUsedConnection */]
+            )(model),
+            __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__index__['b' /* lastUsedUsername */])(
+              model
+            )
+          );
         };
         var buttonLabel =
           __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__index__['b' /* lastUsedUsername */])(
@@ -23912,7 +23900,7 @@ object-assign
             alternativeLabel: i18n.str('notYourAccountAction'),
             alternativeClickHandler: function alternativeClickHandler() {
               return __webpack_require__.i(
-                __WEBPACK_IMPORTED_MODULE_3__quick_auth_actions__['c' /* skipQuickAuth */]
+                __WEBPACK_IMPORTED_MODULE_3__quick_auth_actions__['b' /* skipQuickAuth */]
               )(__WEBPACK_IMPORTED_MODULE_5__index__['id'](model));
             },
             buttonLabel: buttonLabel,
@@ -24188,7 +24176,7 @@ object-assign
               isSubmitting = _props.isSubmitting;
 
             if (!isSubmitting) {
-              closeHandler();
+              closeHandler(false, function() {}, true);
             }
           };
 
@@ -33624,7 +33612,7 @@ object-assign
             alternativeLabel: i18n.str('notYourAccountAction'),
             alternativeClickHandler: function alternativeClickHandler() {
               return __webpack_require__.i(
-                __WEBPACK_IMPORTED_MODULE_3__quick_auth_actions__['c' /* skipQuickAuth */]
+                __WEBPACK_IMPORTED_MODULE_3__quick_auth_actions__['b' /* skipQuickAuth */]
               )(__WEBPACK_IMPORTED_MODULE_5__core_index__['id'](model));
             },
             buttonLabel: i18n.str('windowsAuthLabel'),
