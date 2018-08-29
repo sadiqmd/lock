@@ -229,6 +229,7 @@ function processScreenOptions(
     (!assertMaybeBoolean(opts, 'allowLogin') && defaults.allowLogin) ||
     (allowLogin === undefined && defaults.allowLogin)
   ) {
+    screens.push('loginClient');
     screens.push('login');
   }
 
@@ -318,7 +319,15 @@ export function setScreen(m, name, fields = []) {
 export function getScreen(m) {
   const screen = tget(m, 'screen');
   const initialScreen = getInitialScreen(m);
-  const screens = [screen, initialScreen, 'login', 'signUp', 'forgotPassword', 'mfaLogin'];
+  const screens = [
+    screen,
+    initialScreen,
+    'login',
+    'loginClient',
+    'signUp',
+    'forgotPassword',
+    'mfaLogin'
+  ];
   const availableScreens = screens.filter(x => hasScreen(m, x));
   return availableScreens[0];
 }

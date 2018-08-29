@@ -1,5 +1,6 @@
 import Base from '../index';
 import Login from './classic/login';
+import LoginClient from './classic/login_client';
 import SignUp from './classic/sign_up_screen';
 import MFALoginScreen from './classic/mfa_login_screen';
 import ResetPassword from '../connection/database/reset_password';
@@ -132,7 +133,8 @@ class Classic {
     login: Login,
     forgotPassword: ResetPassword,
     signUp: SignUp,
-    mfaLogin: MFALoginScreen
+    mfaLogin: MFALoginScreen,
+    loginClient: LoginClient
   };
 
   didInitialize(model, options) {
