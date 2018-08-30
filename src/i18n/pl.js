@@ -6,7 +6,9 @@ export default {
     forgotPassword: {
       too_many_requests:
         'Przekroczyłeś limit prób zmiany hasła. Odczekaj chwilę, zanim spróbujesz ponownie.',
-      'lock.fallback': 'Przykro nam, coś poszło nie tak podczas próby zmiany hasła.'
+      'lock.fallback': 'Przykro nam, coś poszło nie tak podczas próby zmiany hasła.',
+      enterprise_email:
+        'Domena Twojego adresu e-mail jest częścią dostawcy tożsamości korporacyjnej. Aby zresetować hasło, skontaktuj się z administratorem bezpieczeństwa.'
     },
     login: {
       blocked_user: 'Ten użytkownik jest zablokowany.',
@@ -118,7 +120,7 @@ export default {
   windowsAuthInstructions: 'Jesteś połączony z sieci firmowej&hellip;',
   windowsAuthLabel: 'Uwierzytelnianie Windows',
   forgotPasswordTitle: 'Zresetuj swoje hasło',
-  signupTitle: 'Zapisz się',
+  signUpTitle: 'Zapisz się',
   mfaInputPlaceholder: 'Kod',
   mfaLoginTitle: '2 Weryfikacja dwuetapowa',
   mfaLoginInstructions:

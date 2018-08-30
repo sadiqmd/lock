@@ -6,7 +6,9 @@ export default {
     forgotPassword: {
       too_many_requests:
         'Elérted a jelszóváltoztatási probálkozások engedélyezett számát. Kérlek, várj egy kicsit mielőtt újrapróbálnád!',
-      'lock.fallback': 'Sajnáljuk, valami hiba történt a jelszóváltoztatás során.'
+      'lock.fallback': 'Sajnáljuk, valami hiba történt a jelszóváltoztatás során.',
+      enterprise_email:
+        'Az e-mail domainje egy Enterprise azonosító szolgáltató része. A jelszó visszaállításához kérjük, olvassa el a biztonsági adminisztrátort.'
     },
     login: {
       blocked_user: 'A felhasználó nincsen engedélyezve.',
@@ -119,7 +121,7 @@ export default {
   windowsAuthInstructions: 'A céged hálózatoddal kapcsolódsz&hellip;',
   windowsAuthLabel: 'Windows bejelentkezés',
   forgotPasswordTitle: 'Állítsd vissza a jelszavad',
-  signupTitle: 'Regisztrálj',
+  signUpTitle: 'Regisztrálj',
   mfaInputPlaceholder: 'Kód',
   mfaLoginTitle: '2 kétlépcsős azonosítás',
   mfaLoginInstructions: 'Kérjük adja meg az ellenőrző kódot generált a mobil alkalmazás.',

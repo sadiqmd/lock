@@ -7,7 +7,9 @@ export default {
       too_many_requests:
         'Vous avez atteint la limite de tentatives de changement de mot de passe. Veuillez patienter avant de recommencer.',
       'lock.fallback':
-        'Nous sommes désolés, un problème est survenu lors de la demande de changement de mot de passe.'
+        'Nous sommes désolés, un problème est survenu lors de la demande de changement de mot de passe.',
+      enterprise_email:
+        "Le domaine de votre messagerie fait partie d'un fournisseur d'identité d'entreprise. Pour réinitialiser votre mot de passe, veuillez contacter votre administrateur de sécurité."
     },
     login: {
       blocked_user: 'L’utilisateur est bloqué.',
@@ -127,7 +129,7 @@ export default {
   windowsAuthInstructions: 'Vous êtes connecté depuis votre réseau d’entreprise...',
   windowsAuthLabel: 'Authentification Windows',
   forgotPasswordTitle: 'réinitialisez votre mot de passe',
-  signupTitle: "S'inscrire",
+  signUpTitle: "S'inscrire",
   mfaInputPlaceholder: 'Code',
   mfaLoginTitle: '2-Step Vérification',
   mfaLoginInstructions:

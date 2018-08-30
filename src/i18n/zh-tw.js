@@ -5,7 +5,8 @@ export default {
   error: {
     forgotPassword: {
       too_many_requests: '嘗試登入次數太多，請稍後再試。',
-      'lock.fallback': '對不起，修改密碼時發生錯誤。'
+      'lock.fallback': '對不起，修改密碼時發生錯誤。',
+      enterprise_email: '您的電子郵件域名是企業身份提供者的一部分。要重置您的密碼，請聯繫您的安全管理員。'
     },
     login: {
       blocked_user: '帳號已被鎖定。',
@@ -107,7 +108,7 @@ export default {
   windowsAuthInstructions: '您已連接到公司網路&hellip;',
   windowsAuthLabel: 'Windows 認證',
   forgotPasswordTitle: '重置你的密碼',
-  signupTitle: '註冊',
+  signUpTitle: '註冊',
   mfaInputPlaceholder: '碼',
   mfaLoginTitle: '兩步驟驗證',
   mfaLoginInstructions: '請輸入您的移動應用程序生成的驗證碼。',

@@ -4,7 +4,9 @@ export default {
       too_many_requests:
         'Hai raggiunto il limite di tentativi di modifica della password . Attendi prima di riprovare.',
       'lock.fallback':
-        'Ci dispiace, qualcosa è andato storto durante la richiesta di modifica della password.'
+        'Ci dispiace, qualcosa è andato storto durante la richiesta di modifica della password.',
+      enterprise_email:
+        "Il dominio della tua email fa parte di un provider di identità aziendale. Per reimpostare la password, consultare l'amministratore della sicurezza."
     },
     login: {
       blocked_user: 'L’utente è bloccato.',
@@ -116,7 +118,7 @@ export default {
   windowsAuthInstructions: 'Si è connessi dalla rete aziendale&hellip;',
   windowsAuthLabel: 'Autenticazione Windows',
   forgotPasswordTitle: 'Reimposta la tua password',
-  signupTitle: 'Registrazione',
+  signUpTitle: 'Registrazione',
   mfaInputPlaceholder: 'Codice',
   mfaLoginTitle: '2-fase di verifica',
   mfaLoginInstructions:

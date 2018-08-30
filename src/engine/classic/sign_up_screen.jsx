@@ -7,7 +7,9 @@ import { hasOnlyClassicConnections, isSSOEnabled, useBigSocialButtons } from '..
 import { renderSignedInConfirmation } from '../../core/signed_in_confirmation';
 import { renderSignedUpConfirmation } from '../../connection/database/signed_up_confirmation';
 import { renderOptionSelection } from '../../field/index';
-import { logIn as enterpriseLogIn } from '../../connection/enterprise/actions';
+import { logIn as enterpriseLogIn, startHRD } from '../../connection/enterprise/actions';
+import { databaseUsernameValue } from '../../connection/database/index';
+import { isHRDDomain } from '../../connection/enterprise';
 import * as l from '../../core/index';
 import * as i18n from '../../i18n';
 
@@ -19,7 +21,7 @@ import LoginSignUpTabs from '../../connection/database/login_sign_up_tabs';
 import SingleSignOnNotice from '../../connection/enterprise/single_sign_on_notice';
 
 const Component = ({ i18n, model }) => {
-  const sso = isSSOEnabled(model) && hasScreen(model, 'login');
+  const sso = isSSOEnabled(model, { emailFirst: true }) && hasScreen(model, 'login');
   const ssoNotice = sso && <SingleSignOnNotice>{i18n.str('ssoEnabled')}</SingleSignOnNotice>;
 
   const tabs = !sso &&
@@ -85,7 +87,11 @@ export default class SignUp extends Screen {
 
   submitHandler(m) {
     if (hasOnlyClassicConnections(m, 'social')) return null;
-    if (isSSOEnabled(m)) return enterpriseLogIn;
+    const username = databaseUsernameValue(m, { emailFirst: true });
+    if (isHRDDomain(m, username)) {
+      return id => startHRD(id, username);
+    }
+    if (isSSOEnabled(m, { emailFirst: true })) return enterpriseLogIn;
     return signUp;
   }
 
@@ -106,7 +112,10 @@ export default class SignUp extends Screen {
   }
 
   getScreenTitle(m) {
-    return i18n.str(m, 'signupTitle');
+    // signupTitle is inconsistent with the rest of the codebase
+    // but, since changing this would be a breaking change, we'll
+    // still support it until the next major version
+    return i18n.str(m, 'signUpTitle') || i18n.str(m, 'signupTitle');
   }
 
   renderTerms(m, terms) {

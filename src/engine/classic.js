@@ -15,9 +15,11 @@ import {
   hasInitialScreen,
   hasScreen,
   initDatabase,
-  overrideDatabaseOptions
+  overrideDatabaseOptions,
+  resolveAdditionalSignUpFields
 } from '../connection/database/index';
 import {
+  isADEnabled,
   defaultEnterpriseConnection,
   defaultEnterpriseConnectionName,
   initEnterprise,
@@ -43,8 +45,8 @@ import { hasError, isDone, isSuccess } from '../sync';
 import { getFieldValue } from '../field/index';
 import { swap, updateEntity } from '../store/index';
 
-export function isSSOEnabled(m) {
-  return matchesEnterpriseConnection(m, databaseUsernameValue(m));
+export function isSSOEnabled(m, options) {
+  return matchesEnterpriseConnection(m, databaseUsernameValue(m, options));
 }
 
 export function matchesEnterpriseConnection(m, usernameValue) {
@@ -153,6 +155,7 @@ class Classic {
 
   willShow(m, opts) {
     m = overrideDatabaseOptions(m, opts);
+    m = resolveAdditionalSignUpFields(m);
     if (isSuccess(m, 'client')) {
       m = validateAllowedConnections(m);
     }
