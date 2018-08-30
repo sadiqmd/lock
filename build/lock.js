@@ -2,7 +2,7 @@
  * lock v11.3.1
  * 
  * Author: Auth0 <support@auth0.com> (http://auth0.com)
- * Date: 2018-8-29 18:09:41
+ * Date: 2018-8-31 01:11:48
  * License: MIT
  * 
  */ /******/ (function(
@@ -36790,7 +36790,7 @@ object-assign
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               __WEBPACK_IMPORTED_MODULE_11__ui_pane_quick_auth_pane__['a' /* default */],
               {
-                buttonLabel: 'Clent user',
+                buttonLabel: 'Client user',
                 buttonClickHandler: function buttonClickHandler(e) {
                   return __webpack_require__.i(
                     __WEBPACK_IMPORTED_MODULE_5__connection_database_actions__[

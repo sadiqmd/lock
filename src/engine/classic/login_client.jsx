@@ -89,7 +89,7 @@ const Component = ({ i18n, model }) => {
 
     enterpriseClient = l.hasSomeConnections(model, 'enterprise') && (
       <QuickAuthPane
-        buttonLabel="Clent user"
+        buttonLabel="Client user"
         buttonClickHandler={e => showLoginActivity(1)}
         primaryColor={primaryColor}
         foregroundColor={foregroundColor}
