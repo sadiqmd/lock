@@ -25,6 +25,7 @@
     "dev": "grunt dev",
     "dist": "grunt dist",
     "prepublish": "cross-env BABEL_ENV=npm grunt dist",
+    "prepare": "cross-env BABEL_ENV=npm grunt dist",
     "precommit": "lint-staged",
     "lint": "eslint --ext .jsx,.js src/",
     "test": "cross-env BABEL_ENV=test zuul -- test/**/*.test.js",
