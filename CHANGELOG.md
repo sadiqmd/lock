@@ -1,5 +1,10 @@
 # Change Log
 
+## [v11.9.3](https://github.com/auth0/lock/tree/v11.9.3) (2018-11-14)
+[Full Changelog](https://github.com/auth0/lock/compare/v11.9.2...v11.9.3)
+
+
+
 ## [v11.0.0](https://github.com/auth0/lock/tree/v11.0.0) (2017-12-21)
 [Full Changelog](https://github.com/auth0/lock/compare/v10.23.0...v11.0.0)
 
