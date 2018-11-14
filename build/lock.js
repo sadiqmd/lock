@@ -2,7 +2,7 @@
  * lock v11.9.0
  * 
  * Author: Auth0 <support@auth0.com> (http://auth0.com)
- * Date: 2018-11-13 02:21:16
+ * Date: 2018-11-14 11:30:22
  * License: MIT
  * 
  */ /******/ (function(
@@ -16260,9 +16260,9 @@ object-assign
         /* unused harmony export WebAuth */
         /* unused harmony export version */
         /**
-         * auth0-js v9.8.2
+         * auth0-js v9.8.5
          * Author: Auth0
-         * Date: 2018-11-13
+         * Date: 2018-11-14
          * License: MIT
          */
 
@@ -17796,7 +17796,7 @@ object-assign
           );
         }
         var base64Url = { encode: encode$1, decode: decode$1 },
-          version = { raw: '9.8.1' };
+          version = { raw: '9.8.5' };
         function RequestWrapper(req) {
           (this.request = req),
             (this.method = req.method),
@@ -21207,23 +21207,25 @@ object-assign
             );
           }),
           (Popup.prototype.loginWithCredentials = function(options, cb) {
-            if (
-              ((options.realm = options.realm || options.connection),
-              (options.popup = !0),
-              (options = objectHelper
-                .merge(this.baseOptions, ['redirectUri', 'responseType', 'state', 'nonce'])
-                .with(objectHelper.blacklist(options, ['popupHandler', 'connection']))),
-              (options = this.transactionManager.process(options)).popup)
-            ) {
-              var popup = this.getPopupHandler(options),
-                url = urlJoin(
-                  this.baseOptions.rootUrl,
-                  'sso_dbconnection_popup',
-                  this.baseOptions.clientID
-                ),
-                relayUrl = urlJoin(this.baseOptions.rootUrl, 'relay.html'),
-                params = objectHelper.pick(options, ['clientID', 'domain']);
-              (params.options = objectHelper.toSnakeCase(
+            var params, popup, url, relayUrl;
+            return (
+              (popup = this.getPopupHandler(options)),
+              delete (options = objectHelper
+                .merge(this.baseOptions, [
+                  'clientID',
+                  'scope',
+                  'domain',
+                  'audience',
+                  '_csrf',
+                  'state',
+                  '_intstate',
+                  'nonce'
+                ])
+                .with(objectHelper.blacklist(options, ['popupHandler']))).popupOptions,
+              ((params = objectHelper.pick(options, [
+                'clientID',
+                'domain'
+              ])).options = objectHelper.toSnakeCase(
                 objectHelper.pick(options, [
                   'password',
                   'connection',
@@ -21233,9 +21235,11 @@ object-assign
                   'device'
                 ])
               )),
-                (params.options.username = options.username || options.email),
-                popup.load(url, relayUrl, { params: params }, wrapCallback(cb));
-            } else this.crossOriginAuthentication.login(options, cb);
+              (params.options.username = options.username || options.email),
+              (url = urlJoin(this.baseOptions.rootUrl, 'sso_dbconnection_popup', options.clientID)),
+              (relayUrl = urlJoin(this.baseOptions.rootUrl, 'relay.html')),
+              popup.load(url, relayUrl, { params: params }, wrapCallback(cb))
+            );
           }),
           (Popup.prototype.passwordlessVerify = function(options, cb) {
             var _this = this;
@@ -33468,9 +33472,9 @@ object-assign
     /***/ function(module, exports, __webpack_require__) {
       /* WEBPACK VAR INJECTION */ (function(global) {
         /**
-         * auth0-js v9.8.2
+         * auth0-js v9.8.5
          * Author: Auth0
-         * Date: 2018-11-13
+         * Date: 2018-11-14
          * License: MIT
          */
 
@@ -33482,7 +33486,7 @@ object-assign
               : (global.CordovaAuth0Plugin = factory());
         })(this, function() {
           'use strict';
-          var version = { raw: '9.8.1' },
+          var version = { raw: '9.8.5' },
             toString = Object.prototype.toString;
           function attribute(o, attr, type, text) {
             if (((type = 'array' === type ? 'object' : type), o && typeof o[attr] !== type))
